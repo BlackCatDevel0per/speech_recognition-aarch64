@@ -225,6 +225,7 @@ class AudioData(object):
         path = os.path.dirname(os.path.abspath(__file__)) # directory of the current module file, where all the FLAC bundled binaries are stored
         flac_converter = shutil_which("flac") # check for installed version first
         if flac_converter is None: # flac utility is not installed
+            """
             if system == "Windows" and platform.machine() in ["i386", "x86", "x86_64", "AMD64"]: # Windows NT, use the bundled FLAC conversion utility
                 flac_converter = os.path.join(path, "flac-win32.exe")
             elif system == "Linux" and platform.machine() in ["i386", "x86", "x86_64", "AMD64"]:
@@ -233,6 +234,11 @@ class AudioData(object):
                 flac_converter = os.path.join(path, "flac-mac")
             else:
                 raise OSError("FLAC conversion utility not available - consider installing the FLAC command line application using `brew install flac` or your operating system's equivalent")
+            """
+            if system == "Linux" and machine in {"aarch64"}:
+                flac_converter = os.path.join(base_path, "flac-linux-aarch64")
+            else:  # no FLAC converter available
+                raise OSError("FLAC conversion utility not available - consider installing the FLAC command line application by running `apt-get install flac` or your operating system's equivalent")
 
         # mark FLAC converter as executable
         try:
