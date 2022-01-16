@@ -1412,7 +1412,7 @@ def get_flac_converter():
         """
 
         if system == "Linux" and machine in {"aarch64"}:
-            flac_converter = os.path.join(base_path, "flac-linux-x86_64")
+            flac_converter = os.path.join(base_path, "flac-linux-aarch64")
         else:  # no FLAC converter available
             raise OSError("FLAC conversion utility not available - consider installing the FLAC command line application by running `apt-get install flac` or your operating system's equivalent")
 
